@@ -11,7 +11,7 @@ string name = Console.ReadLine();
 Console.Write( $"{name}, введите адрес доставки: " );
 string address = Console.ReadLine();
 
-Boolean approve = ApproveOrder( title, amount, name, address );
+bool approve = ApproveOrder( title, amount, name, address );
 if ( approve )
 {
     DateTime orderDay = CheckDays();
@@ -35,7 +35,7 @@ static DateTime CheckDays()
     return nowDay.AddDays( 3 );
 }
 
-static Boolean ApproveOrder( string title, int amount, string name, string address )
+static bool ApproveOrder( string title, int amount, string name, string address )
 {
     Console.WriteLine( $"Здравствуйте, {name}, вы заказали {amount} {title} на адрес {address}, все верно?" );
     Console.Write( "Введите 'Да' для подтверждения заказа, и 'Нет' для его отмены: " );
