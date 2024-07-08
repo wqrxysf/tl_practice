@@ -3,7 +3,7 @@ string label = Console.ReadLine();
 
 Console.Write( $"Введите необходимое количество товара {label}: " );
 string tempQuantity = Console.ReadLine();
-int amount = CheckAmount( tempQuantity );
+int amount = ValidateAmount( tempQuantity );
 
 Console.Write( "Введите Ваше имя: " );
 string name = Console.ReadLine();
@@ -18,7 +18,7 @@ if ( approve )
     Console.WriteLine( $"{name}! Ваш заказ {label} в количестве {amount} оформлен! Ожидайте доставку по адресу {address} к {orderDay.ToLongDateString()}." );
 }
 
-static int CheckAmount( string amount )
+static int ValidateAmount( string amount )
 {
     while ( ( int.TryParse( amount, out int amountTemplate ) == false ) && ( amountTemplate <= 0 ) )
     {
@@ -38,24 +38,21 @@ static DateTime AddThreeDays()
 static bool ApproveOrder( string title, int amount, string name, string address )
 {
     Console.WriteLine( $"Здравствуйте, {name}, вы заказали {amount} {title} на адрес {address}, все верно?" );
-    Console.Write( "Введите 'Да' для подтверждения заказа, и 'Нет' для его отмены: " );
-    string userData = Console.ReadLine().ToLower();
-    if ( ( userData == "да" ) || ( userData == "'да'" ) )
+    Console.Write( "[1] - Подтвердить заказ" );
+    Console.WriteLine( "[2] - Отменить заказ" );
+    string userData = Console.ReadLine();
+    while ( ( userData != "1" ) || ( userData != "2" ) )
+    {
+        Console.Write( "[1] - Подтвердить заказ" );
+        Console.WriteLine( "[2] - Отменить заказ" );
+        userData = Console.ReadLine();
+    }
+    if ( ( userData == "1" ) )
     {
         return true;
     }
     else
     {
-        Console.WriteLine( $"Ваш ответ {userData} был распознан, как 'Нет'." );
-        Console.Write( "Подтвердите отмену заказа, введя слово 'ОТМЕНА': " );
-        userData = Console.ReadLine().ToLower();
-        if ( ( userData == "отмена" ) || ( userData == "'отмена'" ) )
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return false;
     }
 }
